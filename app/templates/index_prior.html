@@ -1,0 +1,37 @@
+
+
+{% extends "layout/base.html" %}
+
+{% block content %}
+<br><br><br><br><br><br><br><br>
+
+
+<div id="wrap">
+    
+ <h1>Hi there! How long will it take for these patients to get the treatment they need?</h1>
+        
+    <div>
+    
+    <br>
+    
+   <div class="col-md-5">
+      <div class="cont">
+            <img src="https://d3w52z135jkm97.cloudfront.net/uploads/profile/image/1926/profile_Clement_Dan_Keya_Pre_op_picture2_AMHF_BKKH.jpg" 
+            height="211" width="359">
+                           
+        </div>
+    <div class="col-md-5">
+   
+
+
+    <br/>
+    <form name="input" action="/results" method="get">
+    Enter Patient URL: <input type="text" name="PatientURL">
+    <br/>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+</center>
+
+{% endblock %}
+

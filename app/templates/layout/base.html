@@ -8,8 +8,13 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 
-    <title>Starter Template</title>
+    <title>Wenzi</title>
 
+
+<link href="static/css/main.css" rel="stylesheet">
+        <script type="text/javascript" src='static/js/jquery-2.0.3.min.js'></script>
+   
+   
     <!-- Bootstrap core CSS -->
     <link href="{{ url_for('static', filename='vendor/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
 
@@ -32,6 +37,78 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    
+     <style>
+      body {
+      background: url(static/images/world_v.jpg) no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      }
+      html, body {
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+      }
+      .ui-autocomplete {
+      max-height: 200px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      position: fixed;
+      z-index: 1511;
+      }
+      #map-canvas {
+      height: 100%;
+      float: right;
+      width: 68%;
+      margin-top:60px;
+      }
+      #output_results {
+      height: 100%;
+      float: left;
+      width: 28%;
+      margin-top: 50px;
+      margin-left:40px;
+      border-width:10px;
+      }
+      #login_form {
+      height: 100%;
+      float: left;
+      width: 100%;
+      margin-top:50px;
+      margin-left:85px;
+      }
+      #sliders {
+      height: 85%;
+      margin: 20px;
+      float: left;
+      width: 28%;
+      margin-top:30px;
+      }
+      #label {
+      color: white;
+      font-size: 100%;
+      line-height: 1.2;
+      padding: 1em;
+      background-color: rgba(0, 0, 0, 0.4);
+      margin-top: 2em;
+      }
+      #other_label {
+      color: white;
+      font-size: 400%;
+      line-height: 1.2;
+      padding: 1em;
+      background-color: rgba(0, 0, 0, 0.4);
+      margin-top: 2em;
+      }
+    </style>
+    
+    
+    
+    
+    
   </head>
 
   <body>
@@ -45,13 +122,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/"><span>InsightFL</span></a>
+          <a class="navbar-brand" href="/"><span>Wenzi</span></a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="home">Home</a></li>
             <li><a href="slides">Slides</a></li>
-            <li><a href="author">Author</a></li>
+            <li><a href="author">Contact</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
