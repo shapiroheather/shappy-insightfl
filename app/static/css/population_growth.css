@@ -1,0 +1,111 @@
+div#population-growth-header {
+	padding: 15px;
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	border-top-left-radius: 5px;
+}
+
+div#population-growth-wrapper {
+	position: relative;
+}
+	div#population-growth-chart {
+		width: 100%;
+		height: 440px;
+	}
+		p#pop-growth-legend {
+			margin: 0 auto;
+			margin-top: -5px;
+			padding: 0;
+			width: 95%;
+			font-size: 0.9em;
+		}
+		
+			p#pop-growth-legend span {
+				display: inline-block;
+				*zoom: 1;
+				*display: inline;
+				margin-right: 10px;
+				margin-left: 15px;
+				width: 40px;
+				background: #666;
+				-webkit-border-radius: 5px;    
+					    border-radius: 5px;				
+			}
+	
+	
+		
+	div#population-growth-overlay {
+		margin: 0;
+		margin-top: 20px;
+		padding: 10px;
+		display: none; 
+		z-index: 3;
+		position: absolute;
+		top: 0px;
+		left: 0px; /* set by JS */
+		text-align: right;
+	}
+		div#population-growth-overlay h4 {
+			text-align: left;
+			margin: 0;
+			padding: 0;
+		}
+	
+	div#population-growth-overlay:hover {
+		display: block;
+	}
+	
+	div#population-growth-overlay table {
+		width: 100%;
+	}
+	
+	div#population-growth-overlay table thead {
+		display: none;
+	}
+	
+	div#population-growth-overlay span.html-progress-bar-bar {
+	}
+		
+		
+	div#population-growth-overlay tr .html-progress-bar-track {
+		margin: 0 auto;
+		width: 100px;
+		height: 15px;
+/*		background-image: url('./images/tan-bg.png'); */
+		text-align: left;
+	}
+		
+	div#population-growth-overlay tr span.html-progress-bar-bar {
+		display: block;
+		width: 100px;
+		height: 15px;
+	}
+
+	
+	div#population-growth-overlay tr:first-child span.html-progress-bar-bar,
+	p#pop-growth-legend span.northeast-legend {
+		background-image: url('./images/pink.png');
+		background-size: auto 100%;
+		background-repeat: repeat-x;
+	}
+	
+	div#population-growth-overlay tr + tr span.html-progress-bar-bar,
+	p#pop-growth-legend span.midwest-legend {
+		background-image: url('./images/orange.png');
+		background-size: auto 100%;
+		background-repeat: repeat-x;
+	}
+	
+	div#population-growth-overlay tr + tr + tr span.html-progress-bar-bar,
+	p#pop-growth-legend span.west-legend {
+		background-image: url('./images/dark-orange.png');
+		background-size: auto 100%;
+		background-repeat: repeat-x;
+	}
+	
+	div#population-growth-overlay tr + tr + tr + tr span.html-progress-bar-bar,
+	p#pop-growth-legend span.south-legend {
+		background-image: url('./images/brown.png');
+		background-size: auto 100%;
+		background-repeat: repeat-x;
+	}	

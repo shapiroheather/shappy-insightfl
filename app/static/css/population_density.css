@@ -1,0 +1,141 @@
+div#most-populous-header, div#highest-density-header {
+	margin: 0;
+	padding: 10px;
+}
+
+/*div#us-most-populous-container, div#us-highest-density-container {
+	margin: 20px auto;
+	width: 90%;
+}*/
+
+.tabbed-table-wrapper {
+	padding: 20px 5%;
+}
+
+/* These are visible only in print view */
+.tabbed-table-wrapper h4 {
+	display: none;
+}
+
+div#us-most-populous-container ul.tabs, 
+div#us-highest-density-container ul.tabs {
+	margin: 0;
+	padding: 0;
+}
+
+div#us-most-populous-container ul.tabs li, 
+div#us-highest-density-container ul.tabs li {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+
+div#us-most-populous-container ul.tabs a, 
+div#us-highest-density-container ul.tabs a {
+	padding: 10px 0;
+	display: inline-block;
+	width: 32.75%;
+	text-align: center;
+	text-decoration: none;
+	color: #656363;
+	font-weight: bold;
+	
+	border: 1px solid #eee;
+	border-bottom: none;
+	-webkit-border-top-right-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	border-top-right-radius: 5px;
+	
+	-webkit-border-top-left-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	border-top-left-radius: 5px;
+	
+	background: #faf9f7; /* Old browsers */
+	background: -moz-linear-gradient(top,  #faf9f7 0%, #f7f7f4 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#faf9f7), color-stop(100%,#f7f7f4)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #faf9f7 0%,#f7f7f4 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #faf9f7 0%,#f7f7f4 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #faf9f7 0%,#f7f7f4 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #faf9f7 0%,#f7f7f4 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#faf9f7', endColorstr='#f7f7f4',GradientType=0 ); /* IE6-9 */ 
+
+}
+
+div#us-most-populous-container ul.tabs a.selected, 
+div#us-highest-density-container ul.tabs a.selected {
+	padding-top: 14px;
+
+	border: 1px solid #032c44;
+	border-bottom: none;
+
+	background: #4a8db0; /* Old browsers */
+	background: -moz-linear-gradient(top,  #4a8db0 0%, #0f6996 1%, #0b5e8d 99%, #095079 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#4a8db0), color-stop(1%,#0f6996), color-stop(99%,#0b5e8d), color-stop(100%,#095079)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #4a8db0 0%,#0f6996 1%,#0b5e8d 99%,#095079 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #4a8db0 0%,#0f6996 1%,#0b5e8d 99%,#095079 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #4a8db0 0%,#0f6996 1%,#0b5e8d 99%,#095079 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #4a8db0 0%,#0f6996 1%,#0b5e8d 99%,#095079 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4a8db0', endColorstr='#095079',GradientType=0 ); /* IE6-9 */
+	
+	color: #fff;
+	font-weight: bold;
+	text-decoration: none;
+	
+	text-shadow: 0px 1px #000;
+}
+
+div#us-most-populous-container table, div#us-highest-density-container table {
+	width: 99.75%;
+	color: #3a8fba;
+}
+
+div#us-most-populous-container table thead, div#us-highest-density-container table thead {
+	background: #5f5f5f;
+	color: #fff;
+	text-align: right;
+	height: 50px;
+}
+
+div#us-most-populous-container table thead th, div#us-highest-density-container table thead th {
+	margin: 0;
+	padding: 10px 10px;
+	font-weight: normal;
+}
+
+div#us-most-populous-container table thead  th.cell0, div#us-highest-density-container table thead  th.cell0 {
+	width: 160px;
+	text-align: left;
+}
+
+div#us-most-populous-container table thead  th.cell1, div#us-highest-density-container table thead  th.cell1 {
+	border-left: 1px solid #565656;
+	border-right: 1px solid #565656;
+}
+
+div#us-most-populous-container table td.cell1, 
+div#us-highest-density-container table td.cell1, 
+div#us-most-populous-container table td.cell2, 
+div#us-highest-density-container table td.cell2 {
+	width: 135px;
+}
+
+div#us-most-populous-container table tbody td, div#us-highest-density-container table tbody td {
+	padding: 6px;
+	padding-top: 10px;
+	text-align: right;
+}
+
+div#us-most-populous-container table tbody td.cell0, div#us-highest-density-container table tbody td.cell0 {
+	text-align: left;
+	width: 160px;
+}
+
+div#us-most-populous-container table tbody td a, div#us-highest-density-container table tbody td a {
+	padding: 5px;
+	color: #3a8fba;
+	text-decoration: underline;
+}
+
+div#us-most-populous-container table tbody tr.alt td, div#us-highest-density-container table tbody tr.alt td {
+	background: #f8f8f5;
+}

@@ -1,0 +1,236 @@
+/*
+Styles for U.S. and World population clocks
+*/
+div#population-counter-container {}	
+
+	div#population-counter-container p:first-child {
+		font-size: 10px;
+		margin: 0;
+		margin-left: 20px;
+		padding: 10px 0;
+		float: left;
+		clear: left;
+	}
+	
+	div#population-counter-container p.share {
+		float: right;
+	}
+	
+	div#us-pop-container, div#world-pop-container {
+		margin: 0;
+		padding: 18px 10px;
+		text-align: center;
+		font-weight: bold;
+		color: #289ede;
+		background: #0d3a53; /* Old browsers */
+		background: -moz-linear-gradient(left,  #0d3a53 0%, #144968 50%, #09334b 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, right top, color-stop(0%,#0d3a53), color-stop(50%,#144968), color-stop(100%,#09334b)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(left,  #0d3a53 0%,#144968 50%,#09334b 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(left,  #0d3a53 0%,#144968 50%,#09334b 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(left,  #0d3a53 0%,#144968 50%,#09334b 100%); /* IE10+ */
+		background: linear-gradient(to right,  #0d3a53 0%,#144968 50%,#09334b 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0d3a53', endColorstr='#09334b',GradientType=1 ); /* IE6-9 */
+/*		min-width: 500px; */
+	}
+	
+	div#us-pop-container h3, div#world-pop-container h3 {
+		margin: 10px auto 5px auto;
+		height: 33px;
+		color: #fefefe;
+		text-shadow: 0px 2px 2px #000;
+		
+/*        filter: dropshadow(color=#000, offx=0, offy=2); IE moves shadow to improper position */
+		font-weight: normal;
+		font-size: 1.5em;
+		background-repeat: no-repeat;
+		display: inline-block;
+	}
+	
+	div#us-pop-container h3 {
+		padding-left: 61px;
+		background-image: url('./images/us-population-icon.png');
+	}
+
+	div#world-pop-container h3 {
+		padding-left: 43px;
+		background-image: url('./images/world-population-icon.png');
+	}
+	
+	div#world-pop-container p {
+		color: #0c6291;
+	}
+	
+	div#population-counter-container div#us-pop-container p, div#population-counter-container div#world-pop-container p {
+		margin: 0;
+		margin-top: 10px;
+		padding: 0;
+		text-shadow: 0px 1px #fff, 0px -1px #ccc;
+		font-size: 20px;
+		float: none;
+	}	
+	div#us-pop-wrapper, div#us-world-wrapper, div#population-growth-column, div#population-distributions-column {
+		margin-bottom: 1px;
+		width: 50%;
+		float: left;
+	}
+		div#us-pop-components-container {
+			margin: 0;
+			padding: 17px;
+			border-right: 1px solid #dadad8;
+		}
+		
+		div#population-counter-container div#us-pop-components-container p, div#population-counter-container div#world-pop-historical p {
+			text-transform: uppercase;
+			font-weight: bold;
+			margin: 0;
+			margin-bottom: 10px;
+			padding: 0;
+			font-size: 13px;
+			float: none;
+			clear: both;
+
+		}
+		div#us-pop-components-container table {
+			margin: 0;
+			padding: 0;
+			width: 100%;
+		}
+		div#us-pop-components-container table thead {
+			display: none;
+		}
+
+		div#us-pop-components-container table td {
+			margin: 0;
+			padding: 5px 0;
+			padding-right: 40px;
+			font-size: 13px;
+			vertical-align: middle;
+		}
+		
+		div#us-pop-components-container table td:nth-of-type(2) {
+			margin: 0;
+			padding: 0;
+/*			width: 115px; */
+			text-align: right;
+		}
+		
+		
+		
+		div#world-pop-historical {
+			padding: 20px;
+		}
+
+			div#world-pop-historical table {
+				/*width: 49.25%;*/
+				/*background: purple;*/
+				border-spacing:0;
+				border-collapse:collapse;
+/*				float: left; */
+				width: 100%;
+			}
+
+			div#world-pop-historical table + table {
+				float: right;
+			}
+
+			div#world-pop-historical table thead {
+				/*background: #5f5f5f;*/
+				color: #5f5f5f;
+				font-size: 0.9em;
+				font-weight: normal;
+				display: none;
+			}
+
+
+			div#world-pop-historical table thead th {
+				/*padding: 5px;*/
+			}
+			
+			div#world-pop-historical p a {
+				color: #5f5f5f;
+			}
+			
+			div#world-pop-historical table thead tr:first-child th {
+				padding: 10px 0;
+			}
+			div#world-pop-historical table thead tr + tr {
+				display: none;
+			}
+
+			div#world-pop-historical table td {
+				padding: 5px 0;
+				font-size: 1.1em;
+			}
+
+		div#us-pop-components-container table td#component-timestamp {
+			text-align: center;
+			color: #167ece;
+			padding-bottom: 5px;
+		}
+		
+/* progress bars */
+#us-pop-components-container div.html-progress-bar-track {
+	background-image: url('./images/tan-bg.png');
+	background-size: auto 100%;
+	background-repeat: repeat-x;
+	width: 100px;
+	height: 15px;
+}
+
+#us-pop-components-container span.html-progress-bar-bar {
+	display: block;
+	height: 15px;
+	background-size: auto 100%;
+	background-repeat: repeat-x;
+	
+}
+
+#us-pop-components-container span.html-progress-bar-bar {
+	background-image: url('./images/light-blue.png');
+}
+
+/* should be the same thing */
+#us-pop-components-container #pop-counter-progress-bar-3 span.html-progress-bar-bar {
+	background-image: url('./images/dark-blue.png');
+}
+
+/* odometer */
+div#us-pop-container p, div#world-pop-container p {
+	margin: 50px auto;
+	padding: 100px;
+	clear: both;
+	float: none;
+}
+
+div#us-pop-container p span, div#world-pop-container p span {
+	margin-right: 4px;
+	display: inline-block;
+	overflow: hidden;
+	height: 44px;
+	position: relative;
+	top: 3px;
+	color: #fff;
+	font-weight: bold;
+	font-size: 1.5em;
+	text-shadow: 0px 0px 2px #000000;
+	filter: dropshadow(color=#000000, offx=0, offy=0);
+}
+
+div#us-pop-container p span.rolling-digit, div#world-pop-container p span.rolling-digit {
+	top: 0px;
+	background-image: url('./images/strip-bg.png');
+	background-position: center center;
+	background-size: 100% 100%;
+/*	background-repeat: no-repeat; IE7 removes image if set */
+	
+	border: 1px solid #102e40;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	
+	-webkit-box-shadow:  0px 4px 4px 0px rgba(184, 209, 221, 0.1);
+			box-shadow:  0px 4px 4px 0px rgba(184, 209, 221, 0.1);
+}
+
+div#us-pop-container p span.rolling-digit img, div#world-pop-container p span.rolling-digit img {
+	position: relative;
+}

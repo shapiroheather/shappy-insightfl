@@ -113,6 +113,9 @@ start_app () {
     cd $project_dir
     screen -d -m gunicorn app:app
 
+    # Restarts nginx
+    sudo service nginx restart
+
     return
 }
 

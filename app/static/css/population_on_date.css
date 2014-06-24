@@ -1,0 +1,87 @@
+div#us-pop-on-date p {
+	color: #064167;
+	font-size: 1.17em;
+	font-weight: bold;
+	float: left;
+	padding-left: 10px;
+	padding-top: 15px;
+	/* padding-bottom: 17px; */
+	padding-bottom: 0; 
+	margin-top: 5px;
+	margin-left: 10px;
+	border-left: 1px solid #aaa;
+}
+
+div#us-pop-on-date .share {
+	float: right;
+	position: relative;
+	top: 30px;
+	border: none;
+	left: -5px;
+	margin: 0;
+	padding: 0;
+	font-size: 10px;
+	font-weight: normal;
+}
+
+.select-date {
+	cursor: pointer;
+}
+
+div#us-pop-on-date a#select-date-image {
+	float: left;
+	display: inline-block;
+	margin: 0;
+	margin-top: 13px;
+	margin-left: 20px;
+	padding: 0;
+	width: 60px;
+	height: 37px;
+	text-indent: -5000px;
+	background: url('./images/select-date-icon.png') top right no-repeat;
+}
+
+div#us-pop-on-date a#select-date-image-under {
+	float: left;
+	display: inline-block;
+	margin: 5px 0 0 309px;
+	padding: 0;
+	width: 72px;
+	height: 11px;
+	text-indent: -5000px;
+	background: url('./images/select-date-icon2.png') top right no-repeat;
+}
+
+div#us-pop-on-date span.select-date {
+	display: inline-block;
+	padding: 5px 10px;
+	background: #0b5c8b;
+	padding-bottom: 5px;
+	-moz-border-radius:    5px; 
+	-webkit-border-radius: 5px; 
+	border-radius:         5px;
+	border: 2px solid #05314a;
+	font-size: 0.8em;
+	color: #fff;
+	
+}
+
+div#us-pop-on-date span.pop-count {
+	color: #ff9e00;
+}
+
+div#us-pop-on-date input {
+	display: block;
+	overflow: hidden;
+	height: 0px;
+	width: 0px;
+	background: none;
+	border: none;
+	position: relative;
+	top: -235px;
+	left: 80px;
+/*	visibility: hidden; */
+}
+
+div#us-pop-on-date .ui-datepicker {
+}

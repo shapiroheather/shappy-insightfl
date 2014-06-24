@@ -18,13 +18,13 @@ body {
   padding: 0 0 40px;
 }
 
-/* Set the fixed height of the footer here */
+/* Set the fixed height of the footer here f5f5f5*/
 #footer {
   position: fixed;
   bottom: 0;
   height: 40px;
   width: 100%;
-  background-color: #f5f5f5;
+  background-color: #668b8b;
 }
 
 /* Genericon social icon styles
