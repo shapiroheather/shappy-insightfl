@@ -29,24 +29,27 @@ from sklearn.cross_validation import cross_val_score
 from sklearn import grid_search
 from sklearn import metrics
 
+
 ###############################################################################
 
 # read in the data
 
 a = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/Watsi_transparency_edited.csv')
 b = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/scraped_data_v2.csv')
+gender_data = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/patient_gender.csv')
+photo_data = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/Watsi_photos.csv')
 
 # merge the data
-
 c = a.merge(b,on='ProfileURL')
+ccc = c.merge(photo_data,on='ProfileURL')
 
-gender_data = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/patient_gender.csv')
-
-d = c.merge(gender_data,on='PatientID')
+d = ccc.merge(gender_data,on='PatientID')
 
 # some brief clean-up...
 
 d = d[d.Cost_y <= 2000]
+
+#d = d[pd.notnull(d['PatientID'])]
 
 #d = d[d.TimeToFunding <7]
 
@@ -67,6 +70,9 @@ def prepare_data_for_RF(d):
     
     day = []
     mo = []
+    
+    
+    
     for row in d.DatePosted:
         day.append(datetime.datetime.strptime(row, '%B %d, %Y').strftime('%A'))
         mo.append(row[0:3])
@@ -152,10 +158,18 @@ d_train = d_train[d_train.TimeToFunding <=20]
 d_train['Age'] = d_train['Age'].astype(np.float64)
 d_train['Cost_y'] = d_train['Cost_y'].astype(np.float64)
 
+d_train = d_train[pd.isnull(d_train['eyes'])==False]
+d_train = d_train[pd.isnull(d_train['smiles'])==False]
+
+
+
 
 d_train=d_train.dropna(subset=['gender'])
 
 d_train['mpd'] = d_train.Cost_y/d_train.TimeToFunding
+
+d_train = d_train.reset_index()
+
 
 for irow in xrange(len(d_train.mpd)):
     if np.isinf(d_train.mpd[irow]):
@@ -190,8 +204,8 @@ matplotlib.pyplot.show()
 
 # run random forest
     
-predictors = ['Cost_y', 'Age','mo_num', 'cLen', 'day_num', 'continent_num', 'gender_num']
-#predictors = ['Cost_y','Age','mo_num', 'day_num', 'cLen']
+#predictors = ['Cost_y', 'Age', 'smiles', 'mo_num', 'eyes', 'continent_num', 'cLen', 'day_num', 'gender_num']
+predictors = ['Cost_y', 'Age','smiles', 'mo_num', 'eyes', 'continent_num', 'cLen', 'day_num', 'gender_num']
 
 #predictors = ['Age']
 numfeat = len(predictors)
@@ -202,18 +216,33 @@ numfeat = len(predictors)
 
 
 # testing set!
-testing = d_train[0:1796:5]
-
+testing = d_train[0:1795:5]
+# 
 Y_test = testing.TimeToFunding
 X_test = testing[predictors]
+# 
+keep = testing['PatientID']
+training = d_train[~d_train['PatientID'].isin(keep)]
+# 
+# #training = d_train[1:1796:2]
+# 
+# # below is training on a subset of participants:    
+Y_train = training.TimeToFunding # variable to predict
+X_train = training[predictors]
 
-#keep = testing['PatientID']
+
+testing = d_train[0:1795:5]
+
+Y_test = testing.mpd
+X_test = testing[predictors]
+
+keep = testing['PatientID']
 training = d_train[~d_train['PatientID'].isin(keep)]
 
-#training = d_train[0:1616:2]
+#training = d_train[1:1796:2]
 
 # below is training on a subset of participants:    
-Y_train = training.TimeToFunding # variable to predict
+Y_train = training.mpd # variable to predict
 X_train = training[predictors]
 
 
@@ -247,7 +276,7 @@ print("Optimal Model:\n" + str(rf_opt.best_estimator_) + "\n")
 
 #Now use the optimal model's parameters to run random forest
 #crf = RandomForestRegressor(n_estimators=1000, max_features=7, random_state=33) # creates object to store parameters
-crf = RandomForestRegressor(n_estimators=1000, max_features=3) # creates object to store parameters
+crf = RandomForestRegressor(n_estimators=1000, max_features=1, random_state=33) # creates object to store parameters
 print "Parameters used in chosen RF model:\n " , crf.get_params()
 
 
@@ -255,13 +284,79 @@ crf.fit(X_train, Y_train)
 
 crf.score(X_train, Y_train)
 # 0.89
+# 0.91 mpd (20% test set)
+# .88 TimeToFunding
 crf.score(X_test, Y_test)
 # 0.58
+# 0.31 mpd (20% test set)
+# .37 mpd (with 25% test set)
+# .17 TimeToFunding
+
+
+test_prediction = crf.predict(X_test)
+
 
 # test to see how well it worked!
 test = crf.predict(X_test) - Y_test
-np.sqrt(np.mean(test**2))
-# 2.56
+SEM = np.sqrt(np.mean(test**2))
+# 320
+
+Y_test_HighBound5 = Y_test + (Y_test*.05)
+Y_test_LowBound5 = Y_test - (Y_test*.05)
+high_test5 = test_prediction < Y_test_HighBound5
+low_test5 = test_prediction > Y_test_LowBound5
+bound_test = high_test5 & low_test5
+sum5 = np.sum(bound_test)
+sum5 = sum5.astype('float')
+accuracy5 = ((sum5)/(len(Y_test)))*100
+print accuracy5
+
+
+Y_test_HighBound10 = Y_test + (Y_test*.1)
+Y_test_LowBound10 = Y_test - (Y_test*.1)
+high_test10 = test_prediction < Y_test_HighBound10
+low_test10 = test_prediction > Y_test_LowBound10
+bound_test = high_test10 & low_test10
+sum10 = np.sum(bound_test)
+sum10 = sum10.astype('float')
+accuracy10 = ((sum10)/(len(Y_test)))*100
+print accuracy10
+
+
+Y_test_HighBound20 = Y_test + (Y_test*.2)
+Y_test_LowBound20 = Y_test - (Y_test*.2)
+high_test20 = test_prediction < Y_test_HighBound20
+low_test20 = test_prediction > Y_test_LowBound20
+bound_test = high_test20 & low_test20
+sum20 = np.sum(bound_test)
+sum20 = sum20.astype('float')
+accuracy20 = ((sum20)/(len(Y_test)))*100
+print accuracy20
+
+Y_test_HighBound50 = Y_test + (Y_test*.5)
+Y_test_LowBound50 = Y_test - (Y_test*.5)
+high_test50 = test_prediction < Y_test_HighBound50
+low_test50 = test_prediction > Y_test_LowBound50
+bound_test = high_test50 & low_test50
+sum50 = np.sum(bound_test)
+sum50 = sum50.astype('float')
+accuracy50 = ((sum50)/(len(Y_test)))*100
+print accuracy50
+
+
+Y_test_HighBoundSEM = Y_test + SEM
+Y_test_LowBoundSEM = Y_test - SEM
+high_testSEM = test_prediction < Y_test_HighBoundSEM
+low_testSEM = test_prediction > Y_test_LowBoundSEM
+bound_test = high_testSEM & low_testSEM
+sumSEM = np.sum(bound_test)
+sumSEM = sumSEM.astype('float')
+accuracySEM = ((sumSEM)/(len(Y_test)))*100
+print accuracySEM
+
+
+
+
 
 MSE=mean_squared_error(Y_test,crf.predict(X_test))
 # 6.56
@@ -269,8 +364,11 @@ MSE=mean_squared_error(Y_test,crf.predict(X_test))
 plt.scatter(Y_test,Y_test-crf.predict(X_test))
 plt.show()
 
+plt.scatter(crf.predict(X_test),Y_test-crf.predict(X_test))
+plt.show()
 
-plotting_names = np.array(('Cost_y','Age','Mo_num','cLen','day_num','continent_num','gender_num'))
+
+plotting_names = np.array(('Cost_y','Age','smiles','mo_num','day_num','continent_num','gender_num', 'smiles', 'eyes'))
 #print crf.feature_importances_
 indices = np.argsort(crf.feature_importances_)[::-1][:numfeat]
 plt.bar(xrange(numfeat), crf.feature_importances_[indices],align='center', alpha=.5)
@@ -290,6 +388,87 @@ clf = linear_model.LinearRegression()
 
 
 clf.fit(X_train, Y_train)
+
+clf.score(X_train, Y_train)
+# 0.30
+
+clf.score(X_test, Y_test)
+# 0.27
+
+
+
+test_prediction = clf.predict(X_test)
+
+
+
+Y_test_HighBound5 = Y_test + (Y_test*.05)
+Y_test_LowBound5 = Y_test - (Y_test*.05)
+high_test5 = test_prediction < Y_test_HighBound5
+low_test5 = test_prediction > Y_test_LowBound5
+bound_test = high_test5 & low_test5
+sum5 = np.sum(bound_test)
+sum5 = sum5.astype('float')
+accuracy5 = ((sum5)/(len(Y_test)))*100
+print accuracy5
+
+
+Y_test_HighBound10 = Y_test + (Y_test*.1)
+Y_test_LowBound10 = Y_test - (Y_test*.1)
+high_test10 = test_prediction < Y_test_HighBound10
+low_test10 = test_prediction > Y_test_LowBound10
+bound_test = high_test10 & low_test10
+sum10 = np.sum(bound_test)
+sum10 = sum10.astype('float')
+accuracy10 = ((sum10)/(len(Y_test)))*100
+print accuracy10
+
+
+Y_test_HighBound20 = Y_test + (Y_test*.2)
+Y_test_LowBound20 = Y_test - (Y_test*.2)
+high_test20 = test_prediction < Y_test_HighBound20
+low_test20 = test_prediction > Y_test_LowBound20
+bound_test = high_test20 & low_test20
+sum20 = np.sum(bound_test)
+sum20 = sum20.astype('float')
+accuracy20 = ((sum20)/(len(Y_test)))*100
+print accuracy20
+
+Y_test_HighBound50 = Y_test + (Y_test*.5)
+Y_test_LowBound50 = Y_test - (Y_test*.5)
+high_test50 = test_prediction < Y_test_HighBound50
+low_test50 = test_prediction > Y_test_LowBound50
+bound_test = high_test50 & low_test50
+sum50 = np.sum(bound_test)
+sum50 = sum50.astype('float')
+accuracy50 = ((sum50)/(len(Y_test)))*100
+print accuracy50
+
+
+Y_test_HighBoundSEM = Y_test + SEM
+Y_test_LowBoundSEM = Y_test - SEM
+high_testSEM = test_prediction < Y_test_HighBoundSEM
+low_testSEM = test_prediction > Y_test_LowBoundSEM
+bound_test = high_testSEM & low_testSEM
+sumSEM = np.sum(bound_test)
+sumSEM = sumSEM.astype('float')
+accuracySEM = ((sumSEM)/(len(Y_test)))*100
+print accuracySEM
+
+
+
+
+
+
+
+
+
+# test to see how well it worked!
+test = clf.predict(X_test) - Y_test
+np.sqrt(np.mean(test**2))
+# 328.76
+
+
+
 print 'coef array',clf.coef_
 print 'length', len(clf.coef_)
 print 'getting value 0:', clf.coef_[0]
@@ -311,12 +490,86 @@ X_train, y_train = X[:offset], y[:offset]
 X_test, y_test = X[offset:], y[offset:]
 
 # Fit regression model
-params = {'n_estimators': 500, 'max_depth': 4, 'min_samples_split': 1,'learning_rate': 0.01, 'loss': 'ls'}
+params = {'n_estimators': 1000, 'max_depth': 4, 'min_samples_split': 1,'learning_rate': 0.01, 'loss': 'ls'}
 clf = ensemble.GradientBoostingRegressor(**params)
 
 clf.fit(X_train, y_train)
-mse = mean_squared_error(y_test, clf.predict(X_test))
-print("MSE: %.4f" % mse)
+
+clf.score(X_train, y_train)
+# 0.67
+
+clf.score(X_test, y_test)
+# 0.23
+
+
+test_prediction = clf.predict(X_test)
+
+
+
+y_test_HighBound5 = y_test + (y_test*.05)
+y_test_LowBound5 = y_test - (y_test*.05)
+high_test5 = test_prediction < y_test_HighBound5
+low_test5 = test_prediction > y_test_LowBound5
+bound_test = high_test5 & low_test5
+sum5 = np.sum(bound_test)
+sum5 = sum5.astype('float')
+accuracy5 = ((sum5)/(len(y_test)))*100
+print accuracy5
+
+
+y_test_HighBound10 = y_test + (y_test*.1)
+y_test_LowBound10 = y_test - (y_test*.1)
+high_test10 = test_prediction < y_test_HighBound10
+low_test10 = test_prediction > y_test_LowBound10
+bound_test = high_test10 & low_test10
+sum10 = np.sum(bound_test)
+sum10 = sum10.astype('float')
+accuracy10 = ((sum10)/(len(y_test)))*100
+print accuracy10
+
+
+y_test_HighBound20 = y_test + (y_test*.2)
+y_test_LowBound20 = y_test - (y_test*.2)
+high_test20 = test_prediction < y_test_HighBound20
+low_test20 = test_prediction > y_test_LowBound20
+bound_test = high_test20 & low_test20
+sum20 = np.sum(bound_test)
+sum20 = sum20.astype('float')
+accuracy20 = ((sum20)/(len(y_test)))*100
+print accuracy20
+
+y_test_HighBound50 = y_test + (y_test*.5)
+y_test_LowBound50 = y_test - (y_test*.5)
+high_test50 = test_prediction < y_test_HighBound50
+low_test50 = test_prediction > y_test_LowBound50
+bound_test = high_test50 & low_test50
+sum50 = np.sum(bound_test)
+sum50 = sum50.astype('float')
+accuracy50 = ((sum50)/(len(y_test)))*100
+print accuracy50
+
+
+y_test_HighBoundSEM = y_test + SEM
+y_test_LowBoundSEM = y_test - SEM
+high_testSEM = test_prediction < y_test_HighBoundSEM
+low_testSEM = test_prediction > y_test_LowBoundSEM
+bound_test = high_testSEM & low_testSEM
+sumSEM = np.sum(bound_test)
+sumSEM = sumSEM.astype('float')
+accuracySEM = ((sumSEM)/(len(y_test)))*100
+print accuracySEM
+
+
+
+
+
+
+
+
+# test to see how well it worked!
+test = clf.predict(X_test) - Y_test
+np.sqrt(np.mean(test**2))
+
 
 # Plot training deviance
 

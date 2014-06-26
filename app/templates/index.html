@@ -3,15 +3,13 @@
 {% block content %}
 
 <html lang="en"
-
     <head>
-    
-        <meta name="viewport" content="width=device-width, intial-scale=1.0">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, intial-scale=1.0">
         <meta name="description" content="">
         <meta name = "author" content="">
-    
+
         <!-- Custom styles for this template -->
         <link href="static/css/main.css" rel="stylesheet">
         <script type="text/javascript" src='static/js/jquery-2.0.3.min.js'></script>
@@ -20,35 +18,36 @@
     
     <body>
  
-<div id="headerwrap">
-	<div class="container">
-	    <div id="other_label"> 
-		<div class="row">
-		<div class="col-lg-8 col-lg-offset-2">
-		
-			<h2><b><a href="http://watsi.org">Watsi</a> aims to bring medical care to people in need.</b></h2>
-				
-            <br>
-            
-        </div><!-- /class col -->
-        </div><!-- /class row -->
-   
-     
-        <form name="input" action="/results" method="get">
-            <div class="input-group">   
-                    <input id="PatientURL" type="text" name="PatientURL" placeholder=" Enter Patient ID(s) and Hit Enter" value="" class="form-control" placeholder=".col-lg-6">
-                    <h2>How long before patients get the care they need?</h2>
-             </div><!-- /input-group -->
-             
-        </div><!-- /class label -->
-        </form>
+    <div id="headerwrap">
+	    <div class="container">
+	        <div id="other_label"> 
+		        <div class="row">
+		            <div class="col-lg-8 col-lg-offset-2">
+			            <h2>
+			                <center>
+			                    <b>
+			                        <a href="http://watsi.org">Watsi</a> aims to bring medical care to people in need.
+			                    </b>
+			                </center>
+			            </h2>
+				        <form name="input" action="/results" method="get">
+                            <div class="input-group">   
+                                <center>
+                                    <input id="PatientURL" type="text" name="PatientURL" placeholder=" Enter Patient ID(s) and Hit Enter" value="" class="form-control" placeholder=".col-sm-4">
+                            <h2>
+                                <center>How long before patients get the care they need?
+                            </h2>
+                            </center>
+                        </div> <!-- /class col -->
+                    </form>
+                </div> <!-- /class row -->
+            </div> <!-- /input-group -->
+        </div> <!-- /class label -->
     </div> <!--container -->
-</div><!-- /headerwrap -->
+</div> <!-- /headerwrap -->
               
-   </body>     
+</body>     
         
-
-
 </html>
 {% endblock %}
 

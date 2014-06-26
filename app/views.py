@@ -70,17 +70,7 @@ def showresults():
     print type(url_list)
     print url_list[0]
     
-    if len(url_list)==6:
-        data_list = []
-        for irow in xrange(len(url_list)):
-            data_list.append(fetch_record('SELECT Predictions, PatientName, Age, Gender, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % url_list[irow]))        
-        
-        
-        sorted_list = sorted(data_list, key=lambda k: k[0]['Predictions'])
-        
-        return render_template('multi_output6.html', sorted_list=sorted_list)        
-
-    elif len(url_list)==5:
+    if len(url_list)>1:
         data_list = []
         for irow in xrange(len(url_list)):
             data_list.append(fetch_record('SELECT Predictions, PatientName, Age, Gender, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % url_list[irow]))        
@@ -89,40 +79,6 @@ def showresults():
         sorted_list = sorted(data_list, key=lambda k: k[0]['Predictions'])
         
         return render_template('multi_output5.html', sorted_list=sorted_list)        
-
-    elif len(url_list)==4:
-        data_list = []
-        for irow in xrange(len(url_list)):
-            data_list.append(fetch_record('SELECT Predictions, PatientName, Age, Gender, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % url_list[irow]))        
-        
-        
-        sorted_list = sorted(data_list, key=lambda k: k[0]['Predictions'])
-        
-        return render_template('multi_output4.html', sorted_list=sorted_list)        
-
-
- 
-    elif len(url_list)==3:
-        data_list = []
-        for irow in xrange(len(url_list)):
-            data_list.append(fetch_record('SELECT Predictions, PatientName, Age, Gender, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % url_list[irow]))        
-        
-        
-        sorted_list = sorted(data_list, key=lambda k: k[0]['Predictions'])
-        
-        return render_template('multi_output3.html', sorted_list=sorted_list)        
-
-
-    elif len(url_list)==2:
-        data_list = []
-        for irow in xrange(len(url_list)):
-            data_list.append(fetch_record('SELECT Predictions, PatientName, Age, Gender, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % url_list[irow]))        
-        
-        
-        sorted_list = sorted(data_list, key=lambda k: k[0]['Predictions'])
-        
-        return render_template('multi_output.html', sorted_list=sorted_list)        
-
             
     else:
         data = fetch_record('SELECT Predictions, PatientName, Age, Gender, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % url)    

@@ -72,80 +72,42 @@
 
 
 
+	<div class="container">
+	    <div id="label"> 
+		<div class="row">
+		<div class = "col-lg-6 "> 
 
-<div class = "span4 offset4">
+
+
+
 
 
 <table class="table table-hover" style="overflow-y:scroll">  
 
     <thead>
-        <tr><td><div class="text-left">Patient</div></td><td><div class="text-left"></div></td><td><div class="text-center">Treatment Cost</div></td><td><div class="text-center">Predicted Time To Funding</div></td></tr>
+        <tr><td></td><td><div class="text-left">Patient</div></td><td><div class="text-left"></div></td><td><div class="text-center">Treatment Cost</div></td><td><div class="text-center">Predicted Time To Funding</div></td></tr>
     </thead>
     
     <tbody>
     
-        <tr><td><div class="text-left">1. <a href = "{{sorted_list[0][0]['ProfileURL']}}" >{{sorted_list[0][0]['PatientName']}}</a>
-			        from {{sorted_list[0][0]['Country']}}</td>
-            <td><p><img src="{{sorted_list[0][0]['PicURL']}}" height="75" ><br>
-			    {{sorted_list[0][0]['Age']}} year old {{sorted_list[0][0]['Gender']}} </p>  
+    
+    {% for row in sorted_list %}
+     
+     <tr><td>{{loop.index}}</td><td><div class="text-left"><a href = "{{sorted_list[loop.index0][0]['ProfileURL']}}" >{{sorted_list[loop.index0][0]['PatientName']}}</a>
+			        from {{sorted_list[loop.index0][0]['Country']}}<br>
+			    {{sorted_list[loop.index0][0]['Age']}} year old {{sorted_list[loop.index0][0]['Gender']}} </td>
+            <td><p><img src="{{sorted_list[loop.index0][0]['PicURL']}}" height="75" ></p>  
 			</td>
 	    
-	        <td><div class="text-center">${{sorted_list[0][0]['Cost']}}</div></td>
+	        <td><div class="text-center">${{sorted_list[loop.index0][0]['Cost']}}</div></td>
 	
-	        <td class=""><div class="text-center">{{sorted_list[0][0]['Predictions']}} days</div></td>
+	        <td class=""><div class="text-center">{{sorted_list[loop.index0][0]['Predictions']}} days</div></td>
 	
         </tr>
         
-        
-        <tr><td><div class="text-left">2. <a href = "{{sorted_list[1][0]['ProfileURL']}}" >{{sorted_list[1][0]['PatientName']}}</a>
-			        from {{sorted_list[1][0]['Country']}}</td>
-            <td><p><img src="{{sorted_list[1][0]['PicURL']}}" height="75" ><br>   
-			    {{sorted_list[1][0]['Age']}} year old {{sorted_list[1][0]['Gender']}}</p>  
-			</td>
-	    
-	        <td><div class="text-center">${{sorted_list[1][0]['Cost']}}</div></td>
-	
-	        <td class=""><div class="text-center">{{sorted_list[1][0]['Predictions']}} days</div></td>
-	
-        </tr>
-
-       <tr><td><div class="text-left">3. <a href = "{{sorted_list[2][0]['ProfileURL']}}" >{{sorted_list[2][0]['PatientName']}}</a>
-			        from {{sorted_list[2][0]['Country']}}</td>
-            <td><p><img src="{{sorted_list[2][0]['PicURL']}}" height="75" ><br>   
-			    {{sorted_list[2][0]['Age']}} year old {{sorted_list[2][0]['Gender']}}</p>  
-			</td>
-	    
-	        <td><div class="text-center">${{sorted_list[2][0]['Cost']}}</div></td>
-	
-	        <td class=""><div class="text-center">{{sorted_list[2][0]['Predictions']}} days</div></td>
-	
-        </tr>
-
-       <tr><td><div class="text-left">4. <a href = "{{sorted_list[3][0]['ProfileURL']}}" >{{sorted_list[3][0]['PatientName']}}</a>
-			        from {{sorted_list[3][0]['Country']}}</td>
-            <td><p><img src="{{sorted_list[3][0]['PicURL']}}" height="75" ><br>   
-			    {{sorted_list[3][0]['Age']}} year old {{sorted_list[3][0]['Gender']}}</p>  
-			</td>
-	    
-	        <td><div class="text-center">${{sorted_list[3][0]['Cost']}}</div></td>
-	
-	        <td class=""><div class="text-center">{{sorted_list[3][0]['Predictions']}} days</div></td>
-	
-        </tr>
-
-      <tr><td><div class="text-left">5. <a href = "{{sorted_list[4][0]['ProfileURL']}}" >{{sorted_list[4][0]['PatientName']}}</a>
-			        from {{sorted_list[4][0]['Country']}}</td>
-            <td><p><img src="{{sorted_list[4][0]['PicURL']}}" height="75" ><br>   
-			    {{sorted_list[4][0]['Age']}} year old {{sorted_list[4][0]['Gender']}}</p>  
-			</td>
-	    
-	        <td><div class="text-center">${{sorted_list[4][0]['Cost']}}</div></td>
-	
-	        <td class=""><div class="text-center">{{sorted_list[4][0]['Predictions']}} days</div></td>
-	
-        </tr>
-
-
+    {% endfor %}
+    
+  
      </tbody>
         
   
@@ -153,6 +115,7 @@
 
 </div>
 
+</div>
 </div>
 </div>
 
