@@ -8,9 +8,9 @@ import pdb
 
 # Set up SQL search
 def fetch_record(query):
-    db = pymysql.connect(host='localhost', user='root',database='watsi')
-    with db:
-        cur = db.cursor(pymysql.cursors.DictCursor)
+    con = pymysql.connect(host=host, user=user,database=db, passwd=passwd)
+    with con:
+        cur = con.cursor(pymysql.cursors.DictCursor)
         cur.execute(query)
         tables = cur.fetchall()
         return tables
