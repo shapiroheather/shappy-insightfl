@@ -58,7 +58,7 @@ a {
 
 a:hover,
 a:focus {
-    color: #919191;
+    color: #000000;
     text-decoration: none;
     outline: 0;
 }
@@ -243,7 +243,7 @@ a:after {
 }
 
 #f i:hover {
-	color: #919191;
+	color: #000000;
 }
 
 /****** SECTIONS *****/
