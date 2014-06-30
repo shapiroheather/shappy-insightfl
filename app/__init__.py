@@ -14,6 +14,7 @@ app.config.from_pyfile('settings/development.cfg')
 # the file path:
 # export PRODUCTION_SETTINGS=/path/to/settings.cfg
 app.config.from_envvar('PRODUCTION_SETTINGS', silent=True)
+#print app.config
 
 # Application DEBUG - should be True in development
 # and False in production
