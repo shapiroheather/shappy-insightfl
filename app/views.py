@@ -3,16 +3,10 @@ from app import app, host, port, user, passwd, db
 from app.helpers.database import con_db
 
 import pymysql
-
-
 import json
 import pdb
 
-# To create a database connection, add the following
-# within your view functions:
-# con = con_db(host, port, user, passwd, db)
-
-# setting up SQL search
+# Set up SQL search
 def fetch_record(query):
     db = pymysql.connect(host='localhost', user='root',database='watsi')
     with db:
@@ -21,88 +15,61 @@ def fetch_record(query):
         tables = cur.fetchall()
         return tables
 
-
 # ROUTING/VIEW FUNCTIONS
 @app.route('/')
 def search():
     return render_template('index.html')
     
-
-@app.route('/results')
-def showresults(): 
-
-    #con = con_db(host, port, user, passwd, db)
-    
+@app.route('/results/<patient_id>')
+def showresults(patient_id): 
+   
     #extract the input
-    url = request.args['PatientURL']
+    #url = request.args['PatientURL']
     
     #convert the input to a list
-    url_str = str(url)
-    url_list = url_str.split(",")
-    print url_list
-    print url_list[0]
+    #url_str = str(url)
+    #url_list = url_str.split(",")
+    
+    id_list = ['2241','2257','2258','2299','2297','2307','2316','2345','2377'] 
+    
+   #  if len(url_list)>1:
+#         data_list = []
+#         for irow in xrange(len(url_list)):
+#             data_list.append(fetch_record('SELECT Predictions, PatientName, Age, Gender, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % url_list[irow]))        
+#                
+#         sorted_list = sorted(data_list, key=lambda k: k[0]['Predictions'], reverse=True)
+#         
+#         return render_template('multi_output5.html', sorted_list=sorted_list)        
+#             
+#     else:
+#         data = fetch_record('SELECT Predictions, PatientName, Age, Gender, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % url)    
+#        
+#         ProfileURL_str = str(data[0]['ProfileURL'])
+#         Photo_str = str(data[0]['PicURL'])
+#         return render_template('output.html', data=data, Photo_str=Photo_str, ProfileURL_str = ProfileURL_str)
 
-    
-    
-     
-    
-    # process the data:
-         
-#     Y_train = fetch_record('SELECT TimeToFunding FROM patients WHERE TimeToFunding IS NOT NULL')
-#     X_train = fetch_record('SELECT Age, CountryNum, Cost FROM patients WHERE TimeToFunding IS NOT NULL')
-#         
-#         clf = RandomForestClassifier(n_estimators=1000, random_state=33) # creates object to store parameters
-#         # cross-validate to figure out best parameters
-#         
-#         clf.fit(X_train, Y_train)     
-#         
-#         Y_test = clf.predict(data)
-#         
-#         # add data to the dictionary
-#         predictions["data"] = Y_test
-#         
-#         return render_template('output.html', data=data)
-#         # Data is now accessible in template: {{data['key']}}
-                      
-    #return render_template('output.html', data=data, PatientName=PatientName, Age=Age, Cost=Cost, Gender=Gender, Caption=Caption, Country=Country, CountryNum=CountryNum, Photo_str = Photo_str, ProfileURL_str=ProfileURL_str)
-    
-    print url_list
-    print type(url_list)
-    print url_list[0]
-    
-    if len(url_list)>1:
+
+    if patient_id=='Select All':
         data_list = []
-        for irow in xrange(len(url_list)):
-            data_list.append(fetch_record('SELECT Predictions, PatientName, Age, Gender, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % url_list[irow]))        
-        
-        
-        sorted_list = sorted(data_list, key=lambda k: k[0]['Predictions'])
+        for irow in xrange(len(id_list)):
+            data_list.append(fetch_record('SELECT Predictions, PatientName, Age, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % id_list[irow]))        
+               
+        sorted_list = sorted(data_list, key=lambda k: k[0]['Predictions'], reverse=True)
         
         return render_template('multi_output5.html', sorted_list=sorted_list)        
             
     else:
-        data = fetch_record('SELECT Predictions, PatientName, Age, Gender, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % url)    
+        data = fetch_record('SELECT Predictions, PatientName, Age, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % patient_id)    
        
         ProfileURL_str = str(data[0]['ProfileURL'])
         Photo_str = str(data[0]['PicURL'])
         return render_template('output.html', data=data, Photo_str=Photo_str, ProfileURL_str = ProfileURL_str)
 
-
-
 @app.route('/index')
 def index():
     # Renders index.html.
     return render_template('index.html')
-
-@app.route("/search.html")
-#def search():
     
-    
-@app.route('/home')
-def home():
-    # Renders home.html.
-    return render_template('home.html')
-
 @app.route('/slides')
 def about():
     # Renders slides.html.

@@ -3,82 +3,125 @@
 {% block content %}
 
 <html lang="en"
-
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, intial-scale=1.0">
         <meta name="description" content="">
         <meta name = "author" content="">
-        
 
-        
-    <!-- Bootstrap core CSS -->
-    <link href="static/css/foodclockstyle.css" rel="stylesheet">
-    <link href="static/css/bootstrap.css" rel="stylesheet">
-    <link href="static/css/font- awesome.min.css" rel="stylesheet">
-    
-     <!-- Custom styles for this template -->
-    <link href="static/css/main.css" rel="stylesheet">
-    <script type="text/javascript" src='static/js/jquery-2.0.3.min.js'></script>
-    
-    <script type="text/javascript">
-        $(document).ready(function(){
-                              
-                              //Check if the current URL contains '#'
-                              if(document.URL.indexOf("#")==-1)
-                              {
-                              // Set the URL to whatever it was plus "#".
-                              url = document.URL+"#";
-                              location = "#";
-                              
-                              //Reload the page
-                              location.reload(true);
-                              
-                              }
-                              });
-    </script> 
-    
-    
-    
-   
-    
+        <!-- Custom styles for this template -->
+        <link href="static/css/main.css" rel="stylesheet">
+        <script type="text/javascript" src='static/js/jquery-2.0.3.min.js'></script>
     </head>    
+     
+    <body>
+
+ <style>
+      body {
+      background: url(static/images/world_v.jpg) no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      }
+      html, body {
+      height: 100%;
+      margin: 0px;
+      padding: 0px;
+      }
+      .ui-autocomplete {
+      max-height: 200px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      position: fixed;
+      z-index: 1511;
+      }
+      #map-canvas {
+      height: 100%;
+      float: right;
+      width: 68%;
+      margin-top:60px;
+      }
+      #output_results {
+      height: 100%;
+      float: left;
+      width: 28%;
+      margin-top: 50px;
+      margin-left:40px;
+      border-width:10px;
+      }
+      #login_form {
+      height: 100%;
+      float: left;
+      width: 100%;
+      margin-top:50px;
+      margin-left:85px;
+      }
+      #sliders {
+      height: 85%;
+      margin: 20px;
+      float: left;
+      width: 28%;
+      margin-top:30px;
+      }
+      #label {
+      color: white;
+      font-size: 100%;
+      line-height: 1.2;
+      padding: 1em;
+      background-color: rgba(0, 0, 0, 0.4);
+      margin-top: 2em;
+      }
+      #other_label {
+      color: white;
+      font-size: 400%;
+      line-height: 1.2;
+      padding: 1em;
+      background-color: rgba(0, 0, 0, 0.4);
+      margin-top: 2em;
+      }
+    </style>
     
-<body>
-
-
-<div class = "container">
-<div id="label"> 
-    <h2><b><a href = "{{ProfileURL_str}}" >{{data[0]['PatientName']}}</a> from {{data[0]['Country']}}</b></h2><br>
-        <div class= "row">
-            <div class = "col-sm-6">    
-                <img src="{{Photo_str}}" height="211" width="359"><br>
-                <div class="text-left"><h4><b>{{data[0]['Age']}} year old {{data[0]['Gender']}}</b></h4></div>
-                <b>Treatment Cost: ${{data[0]['Cost']}}</b><br>
-            </div>
-           
-            <div class="col-sm-6">
-                
-                
-                <h3>Predicted time to funding: {{data[0]['Predictions']}} days</h3>
-                  
-            </div>
-        
-        <table class="table">
-            <tr><td><h3 class="text=center"><b>{{data[0]['Caption']}} </h3></td></tr>
-            <tr></tr>
-        </table>
-                
-        </div>
-    </div>
-</div>
-</div>
+    <br><br>
+    <div class = "container">
+        <div id="label"> 
+            <h2>
+                <b><a href = "{{ProfileURL_str}}" >{{data[0]['PatientName']}}</a> from {{data[0]['Country']}}</b>
+            </h2>
+            <br>
+            <div class= "row">
+                <div class = "col-sm-6">    
+                    <img src="{{Photo_str}}" height="211" width="359">
+                    <br>
+                    <div class="text-left">
+                        <h4>
+                            <b>Age: {{data[0]['Age']}}</b>
+                        </h4>
+                    </div> <!-- /class text -->
+                    <b>Treatment Cost: ${{data[0]['Cost']}}</b>
+                    <br>
+                </div> <!-- /class col -->
+                <div class="col-sm-6">
+                    <h3>Predicted daily donations: ${{data[0]['Predictions']}}</h3>
+                </div> <!-- /class col -->
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <h3 class="text=center">
+                                    <b>{{data[0]['Caption']}}
+                                </h3>
+                            </td>
+                        </tr>
+                        <tr></tr>
+                    </tbody>
+                </table>
+            </div> <!-- /class row -->
+        </div> <!-- /class label -->
+    </div> <!-- /class container -->
     
-</body>
-
-</center>
-
+    </body>
 </html>
 
 {% endblock %}

@@ -13,11 +13,10 @@
         <!-- Custom styles for this template -->
         <link href="static/css/main.css" rel="stylesheet">
         <script type="text/javascript" src='static/js/jquery-2.0.3.min.js'></script>
-   
-    </head>    
+    </head>  
+      
+    <body> 
     
-    <body>
- 
     <div id="headerwrap">
 	    <div class="container">
 	        <div id="other_label"> 
@@ -29,25 +28,44 @@
 			                        <a href="http://watsi.org">Watsi</a> aims to bring medical care to people in need.
 			                    </b>
 			                </center>
-			            </h2>
-				        <form name="input" action="/results" method="get">
-                            <div class="input-group">   
-                                <center>
-                                    <input id="PatientURL" type="text" name="PatientURL" placeholder=" Enter Patient ID(s) and Hit Enter" value="" class="form-control" placeholder=".col-sm-4">
-                            <h2>
-                                <center>How long before patients get the care they need?
-                            </h2>
-                            </center>
-                        </div> <!-- /class col -->
-                    </form>
+			            </h2>      
+			            <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+				                <form name="input" action="/results" method="get">
+				        			<select id="patient_id" class="btn btn-info form-control input-lg">
+				                        <option>Select All</option>
+				                        <option>2241</option>
+				                        <option>2257</option>
+				                        <option>2258</option>
+				                        <option>2297</option>
+				                        <option>2299</option>
+				                        <option>2307</option>
+				                        <option>2316</option>
+				                        <option>2345</option>
+				                        <option>2377</option>         
+				                    </select>			        
+				                    <button id="submit" type="button" class="btn btn-primary btn-block input-lg" >Submit</button>
+				                </form>
+				            </div> <!-- /class col -->
+                        </div> <!-- /class row -->
+				        <h2>
+                            <center>Who will get the most in daily donations?</center>
+                        </h2>
+				    </div> <!-- /class col -->
                 </div> <!-- /class row -->
-            </div> <!-- /input-group -->
-        </div> <!-- /class label -->
-    </div> <!--container -->
-</div> <!-- /headerwrap -->
-              
-</body>     
-        
+			</div> <!-- /class label -->       
+		</div> <!--container -->	       
+    </div> <!-- /headerwrap -->               
+                            
+    <script>         
+        $('#submit').click(function(e){
+            var patient_id_dropdown = document.getElementById('patient_id');
+            window.location.href = '/results/'+patient_id_dropdown.value
+        });         
+    </script>     
+       
+    </body>     
 </html>
+ 
 {% endblock %}
 
