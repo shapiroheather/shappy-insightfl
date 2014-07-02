@@ -32,7 +32,7 @@ def showresults(patient_id):
                
         sorted_patient_list = sorted(new_patient_list, key=lambda k: k[0]['Predictions'], reverse=True)
         
-        return render_template('multi_output5.html', sorted_patient_list=sorted_patient_list)        
+        return render_template('multi_output5.html', sorted_patient_list = sorted_patient_list)        
             
     else:
         data = fetch_record('SELECT Predictions, PatientName, Age, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % patient_id)    
