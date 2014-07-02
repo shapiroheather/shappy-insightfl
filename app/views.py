@@ -23,16 +23,16 @@ def search():
 @app.route('/results/<patient_id>')
 def showresults(patient_id): 
    
-    new_list = ['2214','2241','3000','3001','3002','3003','3004','3006'] 
+    patient_list = ['2214','2241','3000','3001','3002','3003','3004','3006'] 
     
     if patient_id=='Select All':
-        new_data_list = []
-        for irow in xrange(len(new_list)):
-            new_data_list.append(fetch_record('SELECT Predictions, PatientName, Age, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % new_list[irow]))        
+        new_patient_list = []
+        for irow in xrange(len(patient_list)):
+            new_patient_list.append(fetch_record('SELECT Predictions, PatientName, Age, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % patient_list[irow]))        
                
-        sorted_list = sorted(new_data_list, key=lambda k: k[0]['Predictions'], reverse=True)
+        sorted_patient_list = sorted(new_patient_list, key=lambda k: k[0]['Predictions'], reverse=True)
         
-        return render_template('multi_output5.html', sorted_list=sorted_list)        
+        return render_template('multi_output5.html', sorted_patient_list=sorted_patient_list)        
             
     else:
         data = fetch_record('SELECT Predictions, PatientName, Age, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % patient_id)    
