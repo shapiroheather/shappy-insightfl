@@ -23,6 +23,8 @@ def search():
 @app.route('/results/<patient_id>')
 def showresults(patient_id): 
    
+    id_list = ['2232','2241','2299','2307','2345','2377','3000','3001','3002','3003','3004','3005'] 
+    
     if patient_id=='Select All':
         data_list = []
         for irow in xrange(len(id_list)):
