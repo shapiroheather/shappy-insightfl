@@ -33,8 +33,8 @@ from sklearn import metrics
 
 # read in the data
 
-a = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/Watsi_transparency_edited.csv')
-b = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/scraped_data_v3.csv')
+a = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/transparency_data_v3.csv')
+b = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/scraped_data_v4.csv')
 gender_data = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/patient_gender.csv')
 photo_data = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/Watsi_photos.csv')
 
@@ -99,6 +99,8 @@ def prepare_data_for_RF(d):
     numeric_centers = {'African Mission Healthcare Foundation': 1, 'Burma Border Projects': 2,'Children\'s Surgical Centre': 3,'CURE International': 4,'Dr. Rick Hodes': 5,'Edna Adan Hospital': 5,'Floating Doctors': 5,'Haiti Cardiac Alliance': 5,'Hope for West Africa': 5,'International Care Ministries': 5,'Living Hope Haiti': 5,'Lwala Community Alliance': 6, 'MedicalPartner': 5,'Ortho FOCOS': 5, 'Partner for Surgery': 5,'Possible': 7, 'Project Medishare': 8,'Project Muso': 5, 'The Kellermann Foundation': 5,'World Altering Medicine': 5, 'Wuqu??? Kawoq': 9}
     d['medical_facility'] = d['MedicalPartner_x'].map(numeric_centers) 
     
+    
+    d = d.reset_index()
     for irow in xrange(len(d)):
         if np.isnan(d.medical_facility[irow]):
             d.medical_facility[irow] = np.float(9)
