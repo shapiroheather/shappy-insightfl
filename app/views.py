@@ -23,32 +23,6 @@ def search():
 @app.route('/results/<patient_id>')
 def showresults(patient_id): 
    
-    #extract the input
-    #url = request.args['PatientURL']
-    
-    #convert the input to a list
-    #url_str = str(url)
-    #url_list = url_str.split(",")
-    
-    id_list = ['2232','2241','2299','2307','2345','2377','3000','3001','3002','3003','3004','3005'] 
-    
-   #  if len(url_list)>1:
-#         data_list = []
-#         for irow in xrange(len(url_list)):
-#             data_list.append(fetch_record('SELECT Predictions, PatientName, Age, Gender, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % url_list[irow]))        
-#                
-#         sorted_list = sorted(data_list, key=lambda k: k[0]['Predictions'], reverse=True)
-#         
-#         return render_template('multi_output5.html', sorted_list=sorted_list)        
-#             
-#     else:
-#         data = fetch_record('SELECT Predictions, PatientName, Age, Gender, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % url)    
-#        
-#         ProfileURL_str = str(data[0]['ProfileURL'])
-#         Photo_str = str(data[0]['PicURL'])
-#         return render_template('output.html', data=data, Photo_str=Photo_str, ProfileURL_str = ProfileURL_str)
-
-
     if patient_id=='Select All':
         data_list = []
         for irow in xrange(len(id_list)):
