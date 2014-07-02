@@ -1,0 +1,10 @@
+.table>tbody>tr:hover
+{
+	background-color: #000000;
+}
+
+.table a
+{
+	color: #ffffff;
+	text-decoration: underline;
+}
