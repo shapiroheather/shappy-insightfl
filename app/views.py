@@ -30,9 +30,9 @@ def showresults(patient_id):
         for irow in xrange(len(ptList)):
             NEWptList.append(fetch_record('SELECT Predictions, PatientName, Age, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % ptList[irow]))        
                
-        SptList = sorted(NEWptList, key=lambda k: k[0]['Predictions'], reverse=True)
+        sorted_ptList = sorted(NEWptList, key=lambda k: k[0]['Predictions'], reverse=True)
         
-        return render_template('multi_output5.html', SptList = SptList)        
+        return render_template('multi_output5.html', sorted_ptList = sorted_ptList)        
             
     else:
         data = fetch_record('SELECT Predictions, PatientName, Age, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % patient_id)    
