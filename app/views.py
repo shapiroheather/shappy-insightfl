@@ -25,7 +25,7 @@ def showresults(patient_id):
    
     ptList = ['2214','2241','3000','3001','3002','3003','3004','3006'] 
     
-    if patient_id=='Select All':
+    if patient_id=='All Patient IDs':
         NEWptList = []
         for irow in xrange(len(ptList)):
             NEWptList.append(fetch_record('SELECT Predictions, PatientName, Age, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % ptList[irow]))        
