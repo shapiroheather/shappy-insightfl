@@ -43,19 +43,7 @@
                         </thead>
                         <tbody>
                         
-                         <tr><td><div class="text-left">1. <a href = "{{sorted_patient_list[0][0]['ProfileURL']}}" >{{sorted_patient_list[0][0]['PatientName']}}</a>
-			        from {{sorted_patient_list[0][0]['Country']}}</td>
-            <td><p><img src="{{sorted_patient_list[0][0]['PicURL']}}" height="75" ><br>
-			    {{sorted_patient_list[0][0]['Age']}} year old {{sorted_patient_list[0][0]['Gender']}} </p>  
-			</td>
-	    
-	        <td><div class="text-center">${{sorted_patient_list[0][0]['Cost']}}</div></td>
-	
-	        <td class=""><div class="text-center">{{sorted_patient_list[0][0]['Predictions']}} days</div></td>
-	
-        </tr>
-        
-       
+                   
                             {% for row in sorted_patient_list %}
      
                             <tr>
