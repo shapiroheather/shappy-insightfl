@@ -23,7 +23,7 @@ def search():
 @app.route('/results/<patient_id>')
 def showresults(patient_id): 
    
-    ptList = ['2214','2241','3000','3001','3002','3003','3004','3006'] 
+    ptList = ['3000','3001','3002','3003','3004','3006'] 
     
     if patient_id=='All Patient IDs':
         NEWptList = []
