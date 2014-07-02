@@ -23,12 +23,12 @@ def search():
 @app.route('/results/<patient_id>')
 def showresults(patient_id): 
    
-    id_list = ['2232','2241','2299','2307','2345','2377','3000','3001','3002','3003','3004','3005'] 
+    new_list = ['2232','2241','2299','2307','2345','2377','3000','3001','3002','3003','3004','3005'] 
     
     if patient_id=='Select All':
         data_list = []
-        for irow in xrange(len(id_list)):
-            data_list.append(fetch_record('SELECT Predictions, PatientName, Age, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % id_list[irow]))        
+        for irow in xrange(len(new_list)):
+            data_list.append(fetch_record('SELECT Predictions, PatientName, Age, Cost, Caption, Country, CountryNum, PicURL, ProfileURL FROM patients WHERE PatientID="%s";' % new_list[irow]))        
                
         sorted_list = sorted(data_list, key=lambda k: k[0]['Predictions'], reverse=True)
         
