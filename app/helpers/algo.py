@@ -316,73 +316,90 @@ crf.score(X_train, Y_train)
 ## VALIDATION
 
 
-# test_prediction = crf.predict(X_test)
+test_prediction = crf.predict(X_test)
+
+
+test_prediction_df = pd.DataFrame(test_prediction,columns=['Predictions'])
+
+testing = testing.reset_index(drop=True)
+
+testing_predictions = testing.merge(test_prediction_df,left_index=True,right_index=True)
+
+predicted_sorted = testing_predictions.sort(['Predictions'])
+top_predicted_sorted = predicted_sorted.head(20)
+bottom_predicted_sorted = predicted_sorted.tail(20)
+
+truth_sorted = testing_predictions.sort(['mpd'])
+top_truth_sorted = truth_sorted.head(20)
+bottom_truth_sorted = truth_sorted.tail(20)
+
+
+ccc = pd.merge(top_predicted_sorted,top_truth_sorted,on='ProfileURL')
+numerator = len(ccc)
+numfloat = np.float(numerator)
+accuracyTop = (numfloat/20)*100
+# 22.5
+# 50
+
+ddd = pd.merge(bottom_predicted_sorted,bottom_truth_sorted,on='ProfileURL')
+numerator = len(ddd)
+numfloat = np.float(numerator)
+accuracyBottom = (numfloat/20)*100
+
+# 47.5
+# 50
+
+print accuracyTop
+print accuracyBottom
+
+
+average_predicted = np.mean(bottom_predicted_sorted.mpd)
+average_truth = np.mean(bottom_truth_sorted.mpd)
+
 # 
+# ## RANDOMIZED/SHUFFLED DATA BELOW FOR FINAL VALIDATION IN PRESENTATION
 # 
-# test_prediction_df = pd.DataFrame(test_prediction,columns=['Predictions'])
-# 
-# testing = testing.reset_index(drop=True)
-# 
-# testing_predictions = testing.merge(test_prediction_df,left_index=True,right_index=True)
-# 
-# predicted_sorted = testing_predictions.sort(['Predictions'])
-# top_predicted_sorted = predicted_sorted.head(20)
-# bottom_predicted_sorted = predicted_sorted.tail(20)
-# 
-# truth_sorted = testing_predictions.sort(['mpd'])
-# top_truth_sorted = truth_sorted.head(20)
-# bottom_truth_sorted = truth_sorted.tail(20)
-# 
-# 
-# ccc = pd.merge(top_predicted_sorted,top_truth_sorted,on='ProfileURL')
-# numerator = len(ccc)
-# numfloat = np.float(numerator)
-# accuracyTop = (numfloat/20)*100
-# # 22.5
-# # 50
-# 
-# ddd = pd.merge(bottom_predicted_sorted,bottom_truth_sorted,on='ProfileURL')
-# numerator = len(ddd)
-# numfloat = np.float(numerator)
-# accuracyBottom = (numfloat/20)*100
-# 
-# # 47.5
-# # 50
-# 
-# print accuracyTop
-# print accuracyBottom
-# 
-# 
-# average_predicted = np.mean(bottom_predicted_sorted.mpd)
-# average_truth = np.mean(bottom_truth_sorted.mpd)
-# 
-# # 
-# # ## RANDOMIZED/SHUFFLED DATA BELOW FOR FINAL VALIDATION IN PRESENTATION
-# # 
-# 
-# random_shuffle = []
-# tester_shuf = []
-# 
-# 
-# for i in xrange(0,1000):
-#     df = X_test
-#     X_test_rearranged = df.apply(np.random.permutation)
-#     test_prediction_random = crf.predict(X_test_rearranged)
-#     bottom_predicted_sorted = np.sort(test_prediction_random)
-#     bps = bottom_predicted_sorted[-21:-1]
-#     random_shuffle.append(str(np.mean(bps)))
-#     random_shuffle[i] = float(random_shuffle[i])
-#     tps = test_prediction_random[-21:-1]
-#     tester_shuf.append(str(np.mean(tps)))
-#     tester_shuf[i] = float(tester_shuf[i])
-# 
-#     
-# plt.hist(tester_shuf, bins=40)
-# plt.show()
-#     
-# plt.hist(random_shuffle, bins=40)
-# plt.show()
-# 
+
+
+from numpy.random import randn
+from random import shuffle
+
+random_shuffle = []
+tester_shuf = []
+hm_shuffle = []
+
+
+for i in xrange(0,10):
+    hm = Y_test
+    hm_rearranged = hm.apply(np.random.shuffle)
+    hm_selection = hm_rearranged[-21:-1]
+    hm_shuffle.append(str(np.mean(hm_selection)))
+    hm_shuffle[i] = float(hm_shuffle[i])
+    
+    df = X_test
+    X_test_rearranged = df.apply(np.random.permutation)
+    test_prediction_random = crf.predict(X_test_rearranged)
+    
+    test_prediction_random_df = pd.DataFrame(test_prediction_random,columns=['Predictions'])
+    testing_random = testing_random.reset_index(drop=True)
+    testing_predictions_random = testing_random.merge(test_prediction_random_df,left_index=True,right_index=True)
+
+
+    bottom_predicted_sorted = np.sort(test_prediction_random)
+    bps = bottom_predicted_sorted[-21:-1]
+    random_shuffle.append(str(np.mean(bps)))
+    random_shuffle[i] = float(random_shuffle[i])
+    tps = test_prediction_random[-21:-1]
+    tester_shuf.append(str(np.mean(tps)))
+    tester_shuf[i] = float(tester_shuf[i])
+
+    
+plt.hist(tester_shuf, bins=40)
+plt.show()
+    
+plt.hist(random_shuffle, bins=40)
+plt.show()
+
 
 # 
 # test_prediction_random_df = pd.DataFrame(test_prediction_random,columns=['Predictions'])
