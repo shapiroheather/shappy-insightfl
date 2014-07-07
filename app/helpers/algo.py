@@ -33,8 +33,8 @@ from sklearn import metrics
 
 # read in the data
 
-a = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/transparency_data_v3.csv')
-b = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/scraped_data_v4.csv')
+a = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/Watsi_transparency_edited.csv')
+b = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/scraped_data_v5.csv')
 gender_data = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/patient_gender.csv')
 photo_data = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/Watsi_photos.csv')
 
@@ -242,7 +242,7 @@ numfeat = len(predictors)
 # X_train = training[predictors]
 
 
-testing = d_train[0:1818:5]
+testing = d_train[0:1910:5]
 
 # Y_test = testing.mpd
 # X_test = testing[predictors]
@@ -272,17 +272,17 @@ X_test = d_test[predictors]
 #
 
 #Build "best" random forest model
-# nfolds = 5 #number of folds to use for cross-validation
-# parameters = {'n_estimators':[10,100,1000],  'max_features':[3,5,7]}
-# njobs = 1 #number of jobs to run in parallel
-# rf_tune = grid_search.GridSearchCV(RandomForestRegressor(), parameters, n_jobs = njobs, cv = nfolds)
-# rf_opt = rf_tune.fit(X_train,Y_train)
+nfolds = 5 #number of folds to use for cross-validation
+parameters = {'n_estimators':[10,100,1000],  'max_features':[3,5,7]}
+njobs = 1 #number of jobs to run in parallel
+rf_tune = grid_search.GridSearchCV(RandomForestRegressor(), parameters, n_jobs = njobs, cv = nfolds)
+rf_opt = rf_tune.fit(X_train,Y_train)
 #     
 # #Results of the grid search for optimal random forest parameters.
-# print("Grid of scores:\n" + str(rf_opt.grid_scores_) + "\n")
-# print("Best zero-one score: " + str(rf_opt.best_score_) + "\n")
-# print("Optimal Model:\n" + str(rf_opt.best_estimator_) + "\n")
-# print "Parameters of random forest:\n " , rf_opt.get_params()
+print("Grid of scores:\n" + str(rf_opt.grid_scores_) + "\n")
+print("Best zero-one score: " + str(rf_opt.best_score_) + "\n")
+print("Optimal Model:\n" + str(rf_opt.best_estimator_) + "\n")
+print "Parameters of random forest:\n " , rf_opt.get_params()
 # 
 #Now use the optimal model's parameters to run random forest
 crf = RandomForestRegressor(n_estimators=1000, max_features=3, random_state=33, max_depth=5) # creates object to store parameters
@@ -319,40 +319,74 @@ crf.score(X_train, Y_train)
 # 
 # test_prediction_df = pd.DataFrame(test_prediction,columns=['Predictions'])
 # 
-# testing = testing.reset_index()
+# testing = testing.reset_index(drop=True)
 # 
 # testing_predictions = testing.merge(test_prediction_df,left_index=True,right_index=True)
 # 
 # predicted_sorted = testing_predictions.sort(['Predictions'])
-# top_predicted_sorted = predicted_sorted.head(18)
-# bottom_predicted_sorted = predicted_sorted.tail(18)
+# top_predicted_sorted = predicted_sorted.head(20)
+# bottom_predicted_sorted = predicted_sorted.tail(20)
 # 
 # truth_sorted = testing_predictions.sort(['mpd'])
-# top_truth_sorted = truth_sorted.head(18)
-# bottom_truth_sorted = truth_sorted.tail(18)
+# top_truth_sorted = truth_sorted.head(20)
+# bottom_truth_sorted = truth_sorted.tail(20)
 # 
 # 
-# c = pd.merge(top_predicted_sorted,top_truth_sorted,on='ProfileURL')
-# numerator = len(c)
+# ccc = pd.merge(top_predicted_sorted,top_truth_sorted,on='ProfileURL')
+# numerator = len(ccc)
 # numfloat = np.float(numerator)
-# accuracyTop = (numfloat/18)*100
+# accuracyTop = (numfloat/20)*100
 # # 22.5
 # # 50
 # 
-# d = pd.merge(bottom_predicted_sorted,bottom_truth_sorted,on='ProfileURL')
-# numerator = len(d)
+# ddd = pd.merge(bottom_predicted_sorted,bottom_truth_sorted,on='ProfileURL')
+# numerator = len(ddd)
 # numfloat = np.float(numerator)
-# accuracyBottom = (numfloat/18)*100
+# accuracyBottom = (numfloat/20)*100
+# 
 # # 47.5
 # # 50
 # 
 # print accuracyTop
 # print accuracyBottom
+# 
+# 
+# average_predicted = np.mean(bottom_predicted_sorted.mpd)
+# average_truth = np.mean(bottom_truth_sorted.mpd)
+# 
+# # 
+# # ## RANDOMIZED/SHUFFLED DATA BELOW FOR FINAL VALIDATION IN PRESENTATION
+# # 
+# 
+# random_shuffle = []
+# tester_shuf = []
+# 
+# 
+# for i in xrange(0,1000):
+#     df = X_test
+#     X_test_rearranged = df.apply(np.random.permutation)
+#     test_prediction_random = crf.predict(X_test_rearranged)
+#     bottom_predicted_sorted = np.sort(test_prediction_random)
+#     bps = bottom_predicted_sorted[-21:-1]
+#     random_shuffle.append(str(np.mean(bps)))
+#     random_shuffle[i] = float(random_shuffle[i])
+#     tps = test_prediction_random[-21:-1]
+#     tester_shuf.append(str(np.mean(tps)))
+#     tester_shuf[i] = float(tester_shuf[i])
+# 
+#     
+# plt.hist(tester_shuf, bins=40)
+# plt.show()
+#     
+# plt.hist(random_shuffle, bins=40)
+# plt.show()
+# 
 
 # 
-# ## RANDOMIZED/SHUFFLED DATA BELOW
-# 
-# test_prediction_random = crf.predict(X_test_rearranged)
+# test_prediction_random_df = pd.DataFrame(test_prediction_random,columns=['Predictions'])
+# predicted_sortedR = test_prediction_random_df.sort(['Predictions'])
+# bottom_predicted_sortedR = predicted_sortedR.tail(20)
+
 # 
 # 
 # test_prediction_rearranged = crf.predict(X_test_rearranged)
