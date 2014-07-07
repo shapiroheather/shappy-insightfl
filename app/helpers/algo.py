@@ -242,6 +242,8 @@ numfeat = len(predictors)
 # X_train = training[predictors]
 
 
+
+
 testing = d_train[0:1910:5]
 
 # Y_test = testing.mpd
@@ -839,8 +841,10 @@ def insertdata_db(host, user):
         insertable_row[8] = int(insertable_row[8])
         insertable_row[11] = int(insertable_row[11])
         insertable_row[13] = int(insertable_row[13])
+       
          
-        cur.execute('''INSERT INTO patients (PatientID, PatientName, MedicalPartner, Age, Country, CountryNum, TimeToFunding, ProfileURL, Cost, Predictions, Caption, CaptionLength, WeekdayPosted, WeekdayNum, PicURL)
+        cur.execute('''INSERT INTO patients (PatientID,
+        PatientName, MedicalPartner, Age, Country, CountryNum, TimeToFunding, ProfileURL, Cost, Predictions, Caption, CaptionLength, WeekdayPosted, WeekdayNum, PicURL)
                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)''', insertable_row) 
                        
     cur.close()
