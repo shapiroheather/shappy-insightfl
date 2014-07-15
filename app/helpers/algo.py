@@ -33,8 +33,8 @@ from sklearn import metrics
 
 # read in the data
 
-a = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/Watsi_transparency_edited_v2.csv')
-b = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/scraped_data_v5.csv')
+a = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/Watsi_transparency_edited_v3.csv')
+b = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/scraped_data_v6.csv')
 gender_data = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/patient_gender.csv')
 photo_data = pd.read_csv('/Users/heathershapiro/Documents/My_Docs/INSIGHT/watsi_project/Watsi_photos.csv')
 
