@@ -3,8 +3,6 @@ from app import app, host, port, user, passwd, db
 from app.helpers.database import con_db
 
 import pymysql
-import json
-import pdb
 
 # Set up SQL search
 def fetch_record(query):
